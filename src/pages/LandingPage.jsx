@@ -18,9 +18,9 @@ export const LandingPage = () => {
               effortlessly with MyTermin. Minimal design, maximum productivity.
             </p>
             <button
-              onClick={() => openModal("signup")}
+              onClick={() => openModal({ type: "signup" })}
               type="button"
-              className="bg-[#F4C550] w-[267px] h-[60px] rounded-xl py-4 text-[18px] text-[#121417] font-black leading-[28px] hover:text-amber-50"
+              className="bg-[#F4C550] w-[267px] h-[60px] py-4 text-[18px] text-[#121417] font-black leading-[28px] hover:text-amber-50"
             >
               Let’s Go
             </button>
