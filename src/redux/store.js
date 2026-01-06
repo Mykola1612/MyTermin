@@ -9,12 +9,10 @@ import {
   REHYDRATE,
 } from "redux-persist";
 
-import { authReducer } from "./auth/authSlice";
+import { rootReducer } from "./rootReducer";
 
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
