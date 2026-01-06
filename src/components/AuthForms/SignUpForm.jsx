@@ -1,4 +1,14 @@
+import { useEffect, useState } from "react";
+
 export const SignUpForm = () => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    console.log({ email, name, password });
+  }, [email, name, password]);
+
   return (
     <form className="flex flex-col max-w-md">
       <h2 className="text-start text-[40px] mb-5">Sign Up</h2>
@@ -15,6 +25,7 @@ export const SignUpForm = () => {
             Name
           </label>
           <input
+            onChange={(e) => setName(e.target.value)}
             id="name"
             type="text"
             className="pl-18  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
@@ -28,6 +39,7 @@ export const SignUpForm = () => {
             Email
           </label>
           <input
+            onChange={(e) => setEmail(e.target.value)}
             id="email"
             type="email"
             className="pl-18  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
@@ -41,6 +53,7 @@ export const SignUpForm = () => {
             Password
           </label>
           <input
+            onChange={(e) => setPassword(e.target.value)}
             id="password"
             type="password"
             className="pl-24  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
