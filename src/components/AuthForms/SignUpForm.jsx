@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUpThunk } from "../../redux/auth/authOperations";
+import { useForm } from "react-hook-form";
 
-export const SignUpForm = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+export const SignUpForm = ({ openModal }) => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
 
-  useEffect(() => {
-    console.log({ email, name, password });
-  }, [email, name, password]);
+  const onSubmit = (data) => {
+    dispatch(signUpThunk(data))
+      .unwrap()
+      .then(() => openModal({ type: "verifyEmail" }))
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <form className="flex flex-col max-w-md">
+    <form className="flex flex-col max-w-md" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-start text-[40px] mb-5">Sign Up</h2>
       <p className="text-start mb-10">
         Welcome to MyTemin. To start managing your tasks and deadlines, please
@@ -25,10 +29,10 @@ export const SignUpForm = () => {
             Name
           </label>
           <input
-            onChange={(e) => setName(e.target.value)}
             id="name"
             type="text"
             className="pl-18  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
+            {...register("name", { required: "Name is required" })}
           />
         </li>
         <li className="relative">
@@ -39,10 +43,10 @@ export const SignUpForm = () => {
             Email
           </label>
           <input
-            onChange={(e) => setEmail(e.target.value)}
             id="email"
             type="email"
             className="pl-18  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
+            {...register("email", { required: "Email is required" })}
           />
         </li>
         <li className="relative">
@@ -53,10 +57,10 @@ export const SignUpForm = () => {
             Password
           </label>
           <input
-            onChange={(e) => setPassword(e.target.value)}
             id="password"
             type="password"
             className="pl-24  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
+            {...register("password", { required: "Password is required" })}
           />
         </li>
       </ul>

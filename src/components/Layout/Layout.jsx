@@ -6,6 +6,7 @@ import { SignInForm } from "../AuthForms/SignInForm";
 import { SignUpForm } from "../AuthForms/SignUpForm";
 import { TerminModal } from "../TerminModal/TerminModal";
 import { CreateTaskForm } from "../CreateTaskForm/CreateTaskForm";
+import { VerifyEmailModal } from "../AuthForms/VerifyEmailModal";
 
 export const Layout = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -19,13 +20,20 @@ export const Layout = () => {
         <Outlet context={{ openModal }} />
       </main>
       <UiModal isOpen={!!activeModal} onClose={closeModal}>
-        {activeModal?.type === "signin" && <SignInForm onClose={closeModal} />}
-        {activeModal?.type === "signup" && <SignUpForm onClose={closeModal} />}
+        {activeModal?.type === "signin" && (
+          <SignInForm onClose={closeModal} openModal={openModal} />
+        )}
+        {activeModal?.type === "signup" && (
+          <SignUpForm onClose={closeModal} openModal={openModal} />
+        )}
         {activeModal?.type === "termin" && (
           <TerminModal taskId={activeModal.taskId} onClose={closeModal} />
         )}
         {activeModal?.type === "createtermin" && (
           <CreateTaskForm onClose={closeModal} />
+        )}
+        {activeModal?.type === "verifyEmail" && (
+          <VerifyEmailModal onClose={closeModal} />
         )}
       </UiModal>
     </>

@@ -1,6 +1,19 @@
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { signInThunk } from "../../redux/auth/authOperations";
+
 export const SignInForm = () => {
+  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+
+  const onSubmit = (data) => {
+    dispatch(signInThunk(data));
+  };
+
+  console.log(localStorage.getItem("token"));
+
   return (
-    <form className="flex flex-col max-w-md">
+    <form className="flex flex-col max-w-md" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-start text-[40px] mb-5">Sign In</h2>
       <p className="text-start mb-10">
         Welcome back! Sign in to continue working in MyTemin.
@@ -17,6 +30,7 @@ export const SignInForm = () => {
             id="email"
             type="email"
             className="pl-18  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
+            {...register("email")}
           />
         </li>
         <li className="relative">
@@ -30,6 +44,7 @@ export const SignInForm = () => {
             id="password"
             type="password"
             className="pl-24  pr-6 w-full border border-[#121417]/30 h-14 rounded-2xl"
+            {...register("password")}
           />
         </li>
       </ul>

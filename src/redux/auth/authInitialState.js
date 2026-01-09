@@ -5,4 +5,6 @@ export const initialState = {
     email: null,
     avatarURL: null,
   },
+  message: null,
+  accessToken: null,
 };
