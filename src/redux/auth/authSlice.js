@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./authInitialState.js";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
-import { signInThunk, signUpThunk } from "./authOperations.js";
+import { logoutThunk, signInThunk, signUpThunk } from "./authOperations.js";
 
 const authSlice = createSlice({
   name: "auth",
@@ -17,6 +17,9 @@ const authSlice = createSlice({
       .addCase(signInThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
+      })
+      .addCase(logoutThunk.fulfilled, () => {
+        return initialState;
       });
   },
 });

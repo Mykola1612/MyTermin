@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { signInThunk } from "../../redux/auth/authOperations";
+import { useNavigate } from "react-router-dom";
 
-export const SignInForm = () => {
+export const SignInForm = ({ onClose }) => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(signInThunk(data));
+    dispatch(signInThunk(data)).then(() => {
+      onClose();
+      navigate("/dashboard");
+    });
   };
-
-  console.log(localStorage.getItem("token"));
 
   return (
     <form className="flex flex-col max-w-md" onSubmit={handleSubmit(onSubmit)}>

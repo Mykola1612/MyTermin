@@ -26,3 +26,15 @@ export const signInThunk = createAsyncThunk(
     }
   }
 );
+
+export const logoutThunk = createAsyncThunk(
+  "auth/logout",
+  async (_, thunkAPI) => {
+    try {
+      await API.post("/auth/logout");
+      localStorage.removeItem("token");
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

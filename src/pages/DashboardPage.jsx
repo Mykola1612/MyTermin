@@ -111,7 +111,7 @@ const tasks = [
     title: "Термин у врача",
     description: "Термин у врача завтра в 10:00",
     type: "appointment",
-    date: "2026-01-12T22:30:00.000Z",
+    date: "2026-01-10T22:30:00.000Z",
     notifications: [],
     address: "Carl-Schurz-Straße 51",
     attendees: [],
@@ -173,12 +173,23 @@ function getDaysUntil(date) {
   return diffDays;
 }
 
-const borderByStatus = {
-  today:
-    "border-l-red-400 border-l-5 shadow-[-6px_0_20px_rgba(239,68,68,0.25)]",
-  tomorrow: "border-l-orange-400",
-  week: "border-l-blue-400",
-  later: "border-l-green-400",
+const borderByStatus = (date) => {
+  const now = new Date();
+  const target = new Date(date);
+
+  const diffMs = target - now;
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays <= 0) {
+    return { border: " border-l-red-400", text: "text-red-500" };
+  }
+  if (diffDays === 1) {
+    return { border: " border-l-orange-400", text: "text-orange-500" };
+  }
+  if (diffDays <= 7) {
+    return { border: " border-l-blue-400", text: "text-blue-500" };
+  }
+  return { border: "  border-l-green-400", text: "text-green-500" };
 };
 
 export const DashboardPage = () => {
@@ -218,17 +229,21 @@ export const DashboardPage = () => {
               <li
                 onClick={() => openModal({ type: "termin", taskId: task._id })}
                 key={task._id}
-                className={`flex items-start  border border-black/50 rounded-2xl p-4 max-w-[380px] ${borderByStatus["today"]}`}
+                className={`flex items-start  border border-black/50
+                   rounded-2xl p-4 max-w-[380px] border-l-5 
+                  ${borderByStatus(task.date).border}`}
               >
                 <div>
+                  <svg className="w-30 stroke-3">
+                    <use href="/sprite.svg#icon-time-progress" />
+                  </svg>
                   <p>До встречи осталось</p>
                   <p>
-                    <span className="text-3xl font-bold text-green-500">
-                      {getDaysUntil(task.date)}
-                    </span>
-
-                    <span className="text-xs uppercase text-gray-400">
-                      дней
+                    <span
+                      className={`text-3xl font-bold
+                       ${borderByStatus(task.date).text}`}
+                    >
+                      {getDaysUntil(task.date)} дней
                     </span>
                   </p>
                 </div>
