@@ -20,7 +20,7 @@ export const LandingPage = () => {
             <button
               onClick={() => openModal({ type: "signup" })}
               type="button"
-              className="bg-[#F4C550] w-[267px] h-[60px] py-4 text-[18px] text-[#121417] font-black leading-[28px] hover:text-amber-50"
+              className="bg-[#F4C550] w-[267px] h-[60px] py-4 text-[18px] text-[#121417] font-black leading-[28px] hover:text-amber-50 transition-all duration-300  ease-out"
             >
               Let’s Go
             </button>
