@@ -14,7 +14,7 @@ export const UserRegistration = ({ openModal }) => {
         <div className="flex items-center gap-x-4">
           <button
             onClick={() => openModal({ type: "signin" })}
-            className="flex items-center gap-x-2 py-3.5"
+            className="flex items-center gap-x-2 py-3"
           >
             <svg className="w-5 h-5">
               <use href="/sprite.svg#icon-login" />
@@ -23,7 +23,7 @@ export const UserRegistration = ({ openModal }) => {
           </button>
           <button
             onClick={() => openModal({ type: "signup" })}
-            className="py-3.5 px-10 bg-[#121417] text-white"
+            className="py-3 px-10 bg-[#121417] text-white"
           >
             Registration
           </button>
@@ -36,7 +36,7 @@ export const UserRegistration = ({ openModal }) => {
                 navigate("/");
               })
             }
-            className="py-3.5 px-10 bg-[#121417] text-white"
+            className="py-3 px-10 bg-[#121417] text-white"
           >
             LogOut
           </button>

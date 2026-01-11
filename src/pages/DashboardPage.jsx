@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const tasks = [
@@ -150,11 +151,11 @@ const tasks = [
     title: "Термин у врача",
     description: "Термин у врача завтра в 10:00",
     type: "appointment",
-    date: "2026-01-01T22:30:00.000Z",
+    date: "2026-01-10T15:59:00.000Z",
     notifications: [],
     address: "Carl-Schurz-Straße 51",
     attendees: [],
-    createdAt: "2026-01-05T00:13:32.504Z",
+    createdAt: "2026-01-11T00:18:32.504Z",
     updatedAt: "2026-01-09T00:13:32.504Z",
   },
 ];
@@ -164,13 +165,34 @@ function getDaysUntil(date) {
   const target = new Date(date);
 
   const diffMs = target - now;
-  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
-  if (diffDays < 0) {
-    return 0;
+  if (diffMs <= 0) {
+    return { value: 0, unit: "done" };
   }
 
-  return diffDays;
+  const totalMinutes = Math.ceil(diffMs / (1000 * 60));
+
+  if (totalMinutes < 60) {
+    if (totalMinutes === 1) {
+      return { value: totalMinutes, unit: "minute" };
+    }
+    return { value: totalMinutes, unit: "minutes" };
+  }
+
+  const totalHours = Math.ceil(totalMinutes / 60);
+
+  if (totalHours < 24) {
+    if (totalHours === 1) {
+      return { value: totalHours, unit: "hour" };
+    }
+    return { value: totalHours, unit: "hours" };
+  }
+
+  const totalDays = Math.ceil(totalHours / 24);
+  if (totalDays === 1) {
+    return { value: totalDays, unit: "day" };
+  }
+  return { value: totalDays, unit: "days" };
 }
 
 const borderByStatus = (date) => {
@@ -194,11 +216,20 @@ const borderByStatus = (date) => {
 
 export const DashboardPage = () => {
   const { openModal } = useOutletContext();
+  const [now, setNow] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(Date.now());
+    }, 60000); // раз в минуту
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
-      <section>
-        <div className=" mx-auto w-[1164px] flex justify-between pt-16 items-center">
+      <section className="pt-14">
+        <div className=" mx-auto w-[1182px] flex justify-between items-center">
           <ul className="flex gap-x-8">
             <li>
               <button type="button">Today</button>
@@ -223,9 +254,9 @@ export const DashboardPage = () => {
         </div>
       </section>
       <section className="pt-10 pb-10 mx-auto w-[1182px]">
-        <ul className="flex flex-wrap gap-5">
-          {tasks.length !== 0 &&
-            tasks.map((task) => (
+        {tasks.length !== 0 ? (
+          <ul className="flex flex-wrap gap-5">
+            {tasks.map((task) => (
               <li
                 onClick={() => openModal({ type: "termin", taskId: task._id })}
                 key={task._id}
@@ -243,7 +274,8 @@ export const DashboardPage = () => {
                       className={`text-3xl font-bold
                        ${borderByStatus(task.date).text}`}
                     >
-                      {getDaysUntil(task.date)} дней
+                      {getDaysUntil(task.date).value}{" "}
+                      {getDaysUntil(task.date).unit}
                     </span>
                   </p>
                 </div>
@@ -265,7 +297,20 @@ export const DashboardPage = () => {
                 </div>
               </li>
             ))}
-        </ul>
+          </ul>
+        ) : (
+          <div className="flex flex-col items-center justify-center text-center py-20 text-gray-400">
+            <div className="text-6xl mb-6">🗓️</div>
+
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              No appointments yet
+            </h2>
+
+            <p className="text-sm mb-6">
+              Your future schedule will appear here
+            </p>
+          </div>
+        )}
       </section>
     </>
   );

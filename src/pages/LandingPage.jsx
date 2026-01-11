@@ -1,10 +1,20 @@
+import { useSelector } from "react-redux";
 import GirlMac from "../assets/img/homePage/woman-laptop.jpg";
 import GirlMac2 from "../assets/img/homePage/woman-laptop2.jpg";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { selectToken } from "../redux/auth/authSelectors";
 
 export const LandingPage = () => {
   const { openModal } = useOutletContext();
-
+  const isAutorized = useSelector(selectToken);
+  const navigate = useNavigate();
+  const handelLetsGo = () => {
+    if (isAutorized) {
+      navigate("/dashboard");
+      return;
+    }
+    openModal({ type: "signup" });
+  };
   return (
     <>
       <section className="mx-auto w-[1312px] pt-5">
@@ -18,7 +28,7 @@ export const LandingPage = () => {
               effortlessly with MyTermin. Minimal design, maximum productivity.
             </p>
             <button
-              onClick={() => openModal({ type: "signup" })}
+              onClick={() => handelLetsGo()}
               type="button"
               className="bg-[#F4C550] w-[267px] h-[60px] py-4 text-[18px] text-[#121417] font-black leading-[28px] hover:text-amber-50 transition-all duration-300  ease-out"
             >
