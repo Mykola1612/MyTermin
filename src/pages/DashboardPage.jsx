@@ -221,7 +221,7 @@ export const DashboardPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(Date.now());
-    }, 60000); // раз в минуту
+    }, 60000);
 
     return () => clearInterval(interval);
   }, []);

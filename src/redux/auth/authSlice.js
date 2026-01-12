@@ -12,14 +12,33 @@ const authSlice = createSlice({
     builder
       .addCase(signUpThunk.fulfilled, (state, action) => {
         state.message = action.payload.message;
-        // state.accessToken = action.payload.accessToken;
+        state.isLoading = false;
       })
       .addCase(signInThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
+        state.isLoading = false;
       })
       .addCase(logoutThunk.fulfilled, () => {
         return initialState;
+      })
+      .addCase(signUpThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signInThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logoutThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signUpThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(signInThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(logoutThunk.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

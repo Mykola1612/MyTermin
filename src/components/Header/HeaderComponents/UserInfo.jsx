@@ -3,7 +3,6 @@ import { selectUser } from "../../../redux/auth/authSelectors";
 
 export const UserInfo = () => {
   const user = useSelector(selectUser);
-  console.log("user: ", user);
 
   return (
     <>

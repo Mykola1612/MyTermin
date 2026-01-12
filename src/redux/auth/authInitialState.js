@@ -7,4 +7,5 @@ export const initialState = {
   },
   message: null,
   accessToken: null,
+  isLoading: false,
 };
