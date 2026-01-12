@@ -229,7 +229,7 @@ export const DashboardPage = () => {
   return (
     <>
       <section className="pt-14">
-        <div className=" mx-auto w-[1182px] flex justify-between items-center">
+        <div className=" mx-auto max-w-[1182px] flex justify-between items-center">
           <ul className="flex gap-x-8">
             <li>
               <button type="button">Today</button>
@@ -253,7 +253,7 @@ export const DashboardPage = () => {
           </button>
         </div>
       </section>
-      <section className="pt-10 pb-10 mx-auto w-[1182px]">
+      <section className="pt-10 pb-10 mx-auto max-w-[1182px]">
         {tasks.length !== 0 ? (
           <ul className="flex flex-wrap gap-5">
             {tasks.map((task) => (
