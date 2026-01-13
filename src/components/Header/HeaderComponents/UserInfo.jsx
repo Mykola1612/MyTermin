@@ -1,13 +1,20 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/auth/authSelectors";
 
-export const UserInfo = () => {
+export const UserInfo = ({ pouUpIsOpenFnc }) => {
   const user = useSelector(selectUser);
+
+  const handelPopUpOpen = () => {
+    pouUpIsOpenFnc((prev) => !prev);
+  };
 
   return (
     <>
       <div>
-        <button className="flex items-center gap-x-3.5">
+        <button
+          onClick={handelPopUpOpen}
+          className="flex items-center gap-x-3.5"
+        >
           {user.avatarURL ? (
             <img src={user.avatarURL} alt="" className="w-11 h-11" />
           ) : (

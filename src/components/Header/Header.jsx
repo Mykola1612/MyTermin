@@ -6,8 +6,12 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../../redux/auth/authSelectors";
 import { UserInfo } from "./HeaderComponents/UserInfo";
 import { useLocation } from "react-router-dom";
+import { HeaderPopUp } from "./HeaderComponents/HeaderPopUp";
 
 export const Header = ({ openModal }) => {
+  const [isOpen, setIsOpen] = useState(null);
+  console.log("isOpen: ", isOpen);
+
   const [scrolled, setScrolled] = useState(false);
   const isAutorized = useSelector(selectToken);
   const location = useLocation();
@@ -28,13 +32,34 @@ export const Header = ({ openModal }) => {
         isDashboard && "border-b-[#F3F3F3] border-b-2 "
       } ${scrolled ? "bg-white/30 backdrop-blur-md shadow-sm" : "bg-white"} `}
     >
-      <section className=" w-[1234px] flex justify-between items-center ">
+      <section className=" w-[1234px] flex justify-between items-center  relative">
         <Logo />
         {isAutorized && <Navigation />}
         <div className=" flex items-center gap-x-2">
-          {isAutorized && <UserInfo />}
-          <UserRegistration openModal={openModal} />
+          {isAutorized ? (
+            <UserInfo pouUpIsOpenFnc={setIsOpen} />
+          ) : (
+            <UserRegistration openModal={openModal} />
+          )}
         </div>
+        <HeaderPopUp isOpen={isOpen}>
+          <div className="flex min-h-[100%] justify-between flex-col">
+            <div>
+              <button className="text-white w-[100%]">
+                <div className="flex justify-between items-center">
+                  <p>Edit profile</p>
+                  <svg className="w-3.5 h-3.5 stroke-[#F3F3F3] fill-transparent">
+                    <use href="/sprite.svg#icon-pancil"></use>
+                  </svg>
+                </div>
+              </button>
+            </div>
+
+            <button className="w-[100%]  py-3 px-10 bg-[#F3F3F3] text-[#121417] rounded-[42px] ">
+              Log out
+            </button>
+          </div>
+        </HeaderPopUp>
       </section>
     </header>
   );
