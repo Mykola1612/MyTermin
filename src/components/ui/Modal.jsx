@@ -30,7 +30,7 @@ export const UiModal = ({ children, isOpen, onClose }) => {
       onClick={handleClick}
       className=" z-40 text-center fixed inset-0 backdrop-blur pt-10 pb-10 bg-black/50 overflow-x-hidden overflow-y-auto "
     >
-      <div className="inline-block relative max-w-[90vw] min-w-[335px] z-50 bg-white rounded-[24px] py-12 px-12 ">
+      <div className="inline-block relative max-w-[90vw] min-w-[335px] z-50 bg-white rounded-3xl py-12 px-12 ">
         <button
           className="absolute top-5 right-5 p-0  outline-none focus:outline-none"
           onClick={() => onClose()}

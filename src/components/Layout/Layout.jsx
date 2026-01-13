@@ -7,6 +7,7 @@ import { SignUpForm } from "../AuthForms/SignUpForm";
 import { TerminModal } from "../TerminModal/TerminModal";
 import { CreateTaskForm } from "../CreateTaskForm/CreateTaskForm";
 import { VerifyEmailModal } from "../AuthForms/VerifyEmailModal";
+import { LogOutModal } from "../AuthForms/LogOutModal";
 
 export const Layout = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -35,6 +36,7 @@ export const Layout = () => {
         {activeModal?.type === "verifyEmail" && (
           <VerifyEmailModal onClose={closeModal} />
         )}
+        {activeModal?.type === "logout" && <LogOutModal onClose={closeModal} />}
       </UiModal>
     </>
   );

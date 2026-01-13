@@ -9,8 +9,13 @@ import { useLocation } from "react-router-dom";
 import { HeaderPopUp } from "./HeaderComponents/HeaderPopUp";
 
 export const Header = ({ openModal }) => {
-  const [isOpen, setIsOpen] = useState(null);
-  console.log("isOpen: ", isOpen);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handelClousePopUp = () => {
+    if (isOpen !== false) {
+      setIsOpen(false);
+    }
+  };
 
   const [scrolled, setScrolled] = useState(false);
   const isAutorized = useSelector(selectToken);
@@ -28,7 +33,7 @@ export const Header = ({ openModal }) => {
 
   return (
     <header
-      className={`  min-h-[48px] flex justify-center items-center py-4 sticky top-0  z-10   ${
+      className={`  min-h-12 flex justify-center items-center py-4 sticky top-0  z-10   ${
         isDashboard && "border-b-[#F3F3F3] border-b-2 "
       } ${scrolled ? "bg-white/30 backdrop-blur-md shadow-sm" : "bg-white"} `}
     >
@@ -42,10 +47,10 @@ export const Header = ({ openModal }) => {
             <UserRegistration openModal={openModal} />
           )}
         </div>
-        <HeaderPopUp isOpen={isOpen}>
-          <div className="flex min-h-[100%] justify-between flex-col">
+        <HeaderPopUp isOpen={isOpen} onClouse={handelClousePopUp}>
+          <div className="flex min-h-full justify-between flex-col">
             <div>
-              <button className="text-white w-[100%]">
+              <button className="text-white w-full">
                 <div className="flex justify-between items-center">
                   <p>Edit profile</p>
                   <svg className="w-3.5 h-3.5 stroke-[#F3F3F3] fill-transparent">
@@ -55,7 +60,10 @@ export const Header = ({ openModal }) => {
               </button>
             </div>
 
-            <button className="w-[100%]  py-3 px-10 bg-[#F3F3F3] text-[#121417] rounded-[42px] ">
+            <button
+              onClick={() => openModal({ type: "logout" })}
+              className="w-full  py-3 px-10 bg-[#F3F3F3] text-[#121417] rounded-[42px] "
+            >
               Log out
             </button>
           </div>

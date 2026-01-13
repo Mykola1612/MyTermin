@@ -1,18 +1,28 @@
-export const HeaderPopUp = ({ children, isOpen }) => {
-  const handleOverlayClick = (e) => {
-    if (e.target) {
-      return;
-    }
-  };
+import { useEffect, useRef } from "react";
 
+export const HeaderPopUp = ({ children, isOpen, onClouse }) => {
+  const popUpRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popUpRef.current && !popUpRef.current.contains(event.target)) {
+        onClouse();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
   const openPopUp = isOpen ? "auto" : "hidden";
-  console.log("openPopUp: ", openPopUp);
 
   return (
     <>
       <div
-        onClick={() => handleOverlayClick()}
-        className={`absolute right-0  z-30 translate-y-[82%]  w-[210px] h-[160px] bg-[#F4C550] rounded-2xl p-4 ${openPopUp}`}
+        ref={popUpRef}
+        className={`absolute right-0  z-30 translate-y-[82%]  w-52.5 h-40 bg-[#F4C550] rounded-2xl p-4 ${openPopUp}`}
       >
         {children}
       </div>

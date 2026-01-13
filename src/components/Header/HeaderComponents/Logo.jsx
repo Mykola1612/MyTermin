@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
-
 export const Logo = () => {
   return (
     <>
       <nav className="flex items-center">
-        <div className="flex items-center gap-x-[8px]">
+        <div className="flex items-center gap-x-2">
           <svg className="w-6 h-6">
             <use href="/sprite.svg#icon-ukraine" />
           </svg>
