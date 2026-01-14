@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { signUpThunk } from "../../redux/auth/authOperations";
 import { useForm } from "react-hook-form";
+import { Button } from "../ui/Button";
 
 export const SignUpForm = ({ openModal }) => {
   const dispatch = useDispatch();
@@ -65,9 +66,9 @@ export const SignUpForm = ({ openModal }) => {
         </li>
       </ul>
 
-      <button type="submit" className="bg-[#F4C550] py-4 ">
+      <Button type="submit" className={"py-4"}>
         Sign Up
-      </button>
+      </Button>
     </form>
   );
 };

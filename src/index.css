@@ -23,26 +23,9 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 16px;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
 }
-
-/* Background: slate-900
-Cards: white / slate-100
-Text main: slate-900
-Text secondary: slate-500
-Primary button: blue-500
-Success: green-500
-Danger: red-500
- */

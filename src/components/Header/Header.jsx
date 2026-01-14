@@ -7,6 +7,7 @@ import { selectToken } from "../../redux/auth/authSelectors";
 import { UserInfo } from "./HeaderComponents/UserInfo";
 import { useLocation } from "react-router-dom";
 import { HeaderPopUp } from "./HeaderComponents/HeaderPopUp";
+import { Button } from "../ui/Button";
 
 export const Header = ({ openModal }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,12 +61,14 @@ export const Header = ({ openModal }) => {
               </button>
             </div>
 
-            <button
-              onClick={() => openModal({ type: "logout" })}
-              className="w-full  py-3 px-10 bg-[#F3F3F3] text-[#121417] rounded-[42px] "
+            <Button
+              onClickFnc={() => openModal({ type: "logout" })}
+              className={
+                "w-full bg-[#F3F3F3] rounded-[42px] hover:text-[#F4C550] focus:text-[#F4C550]"
+              }
             >
               Log out
-            </button>
+            </Button>
           </div>
         </HeaderPopUp>
       </section>

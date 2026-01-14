@@ -3,6 +3,7 @@ import GirlMac from "../assets/img/homePage/woman-laptop.jpg";
 import GirlMac2 from "../assets/img/homePage/woman-laptop2.jpg";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { selectToken } from "../redux/auth/authSelectors";
+import { Button } from "../components/ui/Button";
 
 export const LandingPage = () => {
   const { openModal } = useOutletContext();
@@ -27,13 +28,14 @@ export const LandingPage = () => {
               Organize your tasks, track your progress, and achieve your goals
               effortlessly with MyTermin. Minimal design, maximum productivity.
             </p>
-            <button
-              onClick={() => handelLetsGo()}
-              type="button"
-              className="bg-[#F4C550] w-[267px] h-[60px] py-4 text-[18px] text-[#121417] font-black leading-[28px] hover:text-amber-50 transition-all duration-300  ease-out"
+            <Button
+              onClickFnc={() => handelLetsGo()}
+              className={
+                "font-black leading-[28px] w-[267px] h-[60px] py-4 text-[18px]"
+              }
             >
               Let’s Go
-            </button>
+            </Button>
           </div>
           <img
             src={GirlMac}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import { Button } from "../components/ui/Button";
 
 const tasks = [
   {
@@ -244,13 +245,12 @@ export const DashboardPage = () => {
               <button type="button">All</button>
             </li>
           </ul>
-          <button
-            onClick={() => openModal({ type: "createtermin" })}
-            type="button"
-            className="bg-[#F4C550] w-[180px] h-[60px] py-4 text-[18px] text-[#121417] font-black leading-[28px] hover:bg-amber-400 hover:text-amber-50  ease-[cubic-bezier(0.4, 0, 0.2, 1)] duration-300  "
+          <Button
+            onClickFnc={() => openModal({ type: "createtermin" })}
+            className={" h-[60px]  text-[18px]"}
           >
             Create New Termin +
-          </button>
+          </Button>
         </div>
       </section>
       <section className="pt-10 pb-10 mx-auto max-w-[1182px]">

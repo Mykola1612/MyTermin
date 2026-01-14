@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { signInThunk } from "../../redux/auth/authOperations";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/Button";
 
 export const SignInForm = ({ onClose }) => {
   const navigate = useNavigate();
@@ -9,9 +10,13 @@ export const SignInForm = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(signInThunk(data)).then(() => {
-      onClose();
-      navigate("/dashboard");
+    dispatch(signInThunk(data)).then((res) => {
+      if (res.meta.requestStatus === "fulfilled") {
+        onClose();
+        navigate("/dashboard");
+      } else {
+        console.log("Ошибка входа");
+      }
     });
   };
 
@@ -52,9 +57,9 @@ export const SignInForm = ({ onClose }) => {
         </li>
       </ul>
 
-      <button type="submit" className="bg-[#F4C550] py-4 ">
+      <Button type="submit" className={"py-4"}>
         Sign In
-      </button>
+      </Button>
     </form>
   );
 };
